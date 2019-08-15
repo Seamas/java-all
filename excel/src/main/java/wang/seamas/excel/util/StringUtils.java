@@ -9,6 +9,9 @@ import lombok.var;
 public class StringUtils {
 
     public static Boolean startWithIgnoreCase(String source, String prefix) {
+        if (source == null) {
+            return false;
+        }
         return source.toUpperCase().startsWith(prefix.toUpperCase());
     }
 

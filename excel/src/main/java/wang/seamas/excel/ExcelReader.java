@@ -33,7 +33,7 @@ public class ExcelReader {
     int skipRow = 0;
     boolean hasHeadRow = true;
 
-    public ExcelReader read(@NotNull String fileName, @NotNull String password) throws IOException, GeneralSecurityException {
+    private ExcelReader readWithPassword(@NotNull String fileName, @NotNull String password) throws IOException, GeneralSecurityException {
         try (InputStream stream = new FileInputStream(fileName)) {
             if (fileName.endsWith(XLS)) {
                 org.apache.poi.hssf.record.crypto.Biff8EncryptionKey
@@ -50,6 +50,13 @@ public class ExcelReader {
             }
         }
         return this;
+    }
+
+    public ExcelReader read(@NotNull String fileName, String password) throws IOException, GeneralSecurityException {
+        if (password.length() > 0) {
+            return readWithPassword(fileName, password);
+        }
+        return read(fileName);
     }
 
     public ExcelReader read(@NotNull String fileName) throws IOException {
