@@ -53,7 +53,7 @@ public class ExcelReader {
     }
 
     public ExcelReader read(@NotNull String fileName, String password) throws IOException, GeneralSecurityException {
-        if (password.length() > 0) {
+        if (password != null && password.length() > 0) {
             return readWithPassword(fileName, password);
         }
         return read(fileName);
